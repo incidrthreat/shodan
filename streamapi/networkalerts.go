@@ -41,7 +41,4 @@ func (networkAlert *networkAlert) FiltereByAlertID(ctx context.Context, outputTy
 	response, e := http.Do(ctx, MethodGet, furl, options)
 	return httputil.Response(response, e)
 }
-}
-}
-}
-}
+

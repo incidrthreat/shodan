@@ -3,6 +3,7 @@ package restapi
 import (
 	"context"
 	. "net/http"
+
 	"github.com/incidrthreat/shodan/config"
 	"github.com/incidrthreat/shodan/net/http"
 	"github.com/incidrthreat/shodan/net/httputil"
@@ -22,8 +23,7 @@ func (account *account) Profile(ctx context.Context) (string, error) {
 
 	options := make(map[string]string)
 	options[config.KEY] = account.key
-	
+
 	response, e := http.Do(ctx, MethodGet, url, options)
 	return httputil.Response(response, e)
-}
 }
