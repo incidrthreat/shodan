@@ -4,7 +4,7 @@ import (
 	"context"
 	"github.com/incidrthreat/shodan/net/http"
 	"github.com/incidrthreat/shodan/net/httputil"
-	"github.com/incidrthreatg/shodan/config"
+	"github.com/incidrthreat/shodan/config"
 	. "net/http"
 
 	"strings"
@@ -40,6 +40,7 @@ func (networkAlert *networkAlert) FiltereByAlertID(ctx context.Context, outputTy
 
 	response, e := http.Do(ctx, MethodGet, furl, options)
 	return httputil.Response(response, e)
+}
 }
 }
 }
