@@ -1,10 +1,8 @@
 package restapi
 
 import (
-	"bytes"
 	"context"
-	"fmt"
-	"net/http"
+	. "net/http"
 	"strings"
 
 	"github.com/incidrthreat/shodan/config"
