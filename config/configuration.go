@@ -14,7 +14,7 @@ type Configuration struct {
 }
 
 func LoadConfig() Configuration {
-	jsonFile, err := os.Open("config.json")
+	jsonFile, err := os.Open("F:\\Programming\\Go\\src\\github.com\\incidrthreat\\shodan\\config\\config.json")
 
 	if err != nil {
 		fmt.Println(err)
