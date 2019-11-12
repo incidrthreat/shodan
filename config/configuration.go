@@ -2,9 +2,6 @@ package config
 
 import (
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"os"
 )
 
 type Configuration struct {
@@ -14,19 +11,86 @@ type Configuration struct {
 }
 
 func LoadConfig() Configuration {
-	jsonFile, err := os.Open("F:\\Programming\\Go\\src\\github.com\\incidrthreat\\shodan\\config\\config.json")
-
-	if err != nil {
-		fmt.Println(err)
-	}
-	defer jsonFile.Close()
-
 	var config Configuration
-	data, _ := ioutil.ReadAll(jsonFile)
-	err = json.Unmarshal(data, &config)
-	if err != nil {
-		fmt.Println("error:", err)
-	}
+	data := `{
+		"restapi": {
+		  "search": {
+			"HostInformationURL": "https://api.shodan.io/shodan/host/{ip}",
+			"HostCountURL": "https://api.shodan.io/shodan/host/count",
+			"HostSearchURL": "https://api.shodan.io/shodan/host/search",
+			"HostSearchTokensURL": "https://api.shodan.io/shodan/host/search/tokens",
+			"PortsURL": "https://api.shodan.io/shodan/ports"
+		  },
+		  "scan": {
+			"ProtocolsURL": "https://api.shodan.io/shodan/protocols",
+			"ScanURL": "https://api.shodan.io/shodan/scan",
+			"ScanInternet": "https://api.shodan.io/shodan/scan/internet",
+			"ScanStatusURL": "https://api.shodan.io/shodan/scan/{id}"
+		  },
+		  "networkAlerts": {
+			"AlertURL": "https://api.shodan.io/shodan/alert",
+			"AlertIdInfoURL": "https://api.shodan.io/shodan/alert/{id}/info",
+			"DeleteAlertURL": "https://api.shodan.io/shodan/alert/{id}",
+			"AlertInfoURL": "https://api.shodan.io/shodan/alert/info",
+			"AlertTriggersURL": "https://api.shodan.io/shodan/alert/triggers",
+			"EnableTriggerURL": "https://api.shodan.io/shodan/alert/{id}/trigger/{trigger}",
+			"DisableTriggerURL": "https://api.shodan.io/shodan/alert/{id}/trigger/{trigger}",
+			"AddTriggerToWhitelistURL": "https://api.shodan.io/shodan/alert/{id}/trigger/{trigger}/ignore/{service}",
+			"RemoveFromWhitelistURL": "https://api.shodan.io/shodan/alert/{id}/trigger/{trigger}/ignore/{service}"
+		  },
+		  "directory": {
+			"QueryURL": "https://api.shodan.io/shodan/query",
+			"QuerySearchURL": "https://api.shodan.io/shodan/query/search",
+			"QueryTagsURL": "https://api.shodan.io/shodan/query/tags"
+		  },
+		  "data": {
+			"DataURL": "https://api.shodan.io/shodan/data",
+			"DatasetURL": "https://api.shodan.io/shodan/data/raw-daily"
+		  },
+		  "organization": {
+			"InfoURL": "https://api.shodan.io/org",
+			"AddNewMemberURL": "https://api.shodan.io/org/member/{user}",
+			"RemoveMemberURL": "https://api.shodan.io/org/member/{user}"
+		  },
+		  "account": {
+			"AccountProfileURL": "https://api.shodan.io/account/profile"
+		  },
+		  "dns": {
+			"DomainInfoURL": "https://api.shodan.io/dns/domain/{domain}",
+			"DNSLookupURL": "https://api.shodan.io/dns/resolve",
+			"ReverseDNSLookupURL": "https://api.shodan.io/dns/reverse"
+		  },
+		  "utility": {
+			"HTTPHeadersURL": "https://api.shodan.io/tools/httpheaders",
+			"MyIPAddressURL": "https://api.shodan.io/tools/myip"
+		  },
+		  "apistatus": {
+			"APIPlanInformationURL": "https://api.shodan.io/api-info"
+		  },
+		  "experimental": {
+			"HoneyscoreURL": "https://api.shodan.io/labs/honeyscore/{ip}"
+		  }
+		},
+		"streamapi": {
+		  "streamData": {
+			"BannersURL": "https://stream.shodan.io/shodan/banners",
+			"FiltereByASNURL":"https://stream.shodan.io/shodan/asn/{asn}",
+			"FiltereByCountry":"https://stream.shodan.io/shodan/countries/{countries}",
+			"FiltereByPorts":"https://stream.shodan.io/shodan/ports/{ports}"
+		  },
+		  "streamNetworkAlerts": {
+			"AllNetworkAlertsURL":"https://stream.shodan.io/shodan/alert",
+			"FiltereByAlertIDURL":"https://stream.shodan.io/shodan/alert/{id}"
+		  }
+		},
+		"exploitsapi": {
+		  "SearchURL":"https://exploits.shodan.io/api/search",
+		  "CountURL":"https://exploits.shodan.io/api/count"
+		}
+	  }`
+
+	json.Unmarshal([]byte(data), &config)
+
 	return config
 }
 
