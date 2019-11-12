@@ -35,20 +35,10 @@ func (scan *scan) Protocols(ctx context.Context) (string, error) {
 }
 
 func (scan *scan) Scan(ctx context.Context, ips []string) (string, error) {
-	url := scan.config.ScanURL
-
-	data := url.Values{}
-	data.set("key", scan.key)
-	data.Add("ips", ips)
-
-	req, _ := http.NewRequest("POST", fmt.Sprintf("%s", url), bytes.NewBufferString(data.Encode()))
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded; param=value")
-
-	response, e := http.Do(ctx, MethodPost, req, nil)
-	return httputil.Response(response, e)
+	panic("implement me")
 }
 
-func (scan *scan) ScanInternet(ctx context.Context, port int, protocol string) (string, error) {
+func (scan *scan) ScanInternet(ctx context.Context, port int, protocol string) (string, error){
 	panic("implement me")
 }
 
@@ -61,4 +51,3 @@ func (scan *scan) ScanStatus(ctx context.Context, id string) (string, error) {
 
 	response, e := http.Do(ctx, MethodGet, furl, options)
 	return httputil.Response(response, e)
-}
