@@ -19,6 +19,7 @@ type Scan interface {
 
 type scan struct {
 	key    string
+	ips    []string
 	config config.Scan
 }
 
@@ -32,12 +33,12 @@ func (scan *scan) Protocols(ctx context.Context) (string, error) {
 	return httputil.Response(response, e)
 }
 
-func (scan *scan) Scan(ctx context.Context, ips string) (string, error) {
+func (scan *scan) Scan(ctx context.Context, ips []string) (string, error) {
 	url := scan.config.ScanURL
 	
 	options := make(map[string]string)
 	options[config.KEY] = scan.key
-	options[ips] = ips
+	options[ips] = scan.ips
 	
 	furl := strings.Replace(url, "{key}", scan.key, -1)
 	
