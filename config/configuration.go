@@ -23,7 +23,7 @@ func LoadConfig() Configuration {
 		  },
 		  "scan": {
 			"ProtocolsURL": "https://api.shodan.io/shodan/protocols",
-			"ScanURL": "https://api.shodan.io/shodan/scan",
+			"ScanURL": "https://api.shodan.io/shodan/scan?key={key}",
 			"ScanInternet": "https://api.shodan.io/shodan/scan/internet",
 			"ScanStatusURL": "https://api.shodan.io/shodan/scan/{id}"
 		  },
