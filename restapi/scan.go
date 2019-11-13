@@ -34,19 +34,19 @@ func (scan *scan) Protocols(ctx context.Context) (string, error) {
 
 func (scan *scan) Scan(ctx context.Context, ips []string) (string, error) {
 	url := scan.config.ScanURL
-	
+
 	options := make(map[string]string)
 	options[config.KEY] = scan.key
-	options[ips] = ips
-	
+	options[IPs] = IPs
+
 	furl := strings.Replace(url, "{key}", scan.key, -1)
-	
+
 	response, e := http.DoPost(ctx, furl, options)
-	
+
 	return httputil.Response(response, e)
 }
 
-func (scan *scan) ScanInternet(ctx context.Context, port int, protocol string) (string, error){
+func (scan *scan) ScanInternet(ctx context.Context, port int, protocol string) (string, error) {
 	panic("implement me")
 }
 
