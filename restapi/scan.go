@@ -19,6 +19,7 @@ type Scan interface {
 
 type scan struct {
 	key    string
+	ips     []string
 	config config.Scan
 }
 
@@ -33,7 +34,15 @@ func (scan *scan) Protocols(ctx context.Context) (string, error) {
 }
 
 func (scan *scan) Scan(ctx context.Context, ips []string) (string, error) {
-	panic("implement me")
+	url := scan.config.ScanURL
+	
+	options := make(map[string]string)
+	options[config.KEY] = scan.key
+	options[ips] = scan.ips
+	
+	response, _ := http.DoPost(ctx, url, options)
+	
+	return httputil.Response(response, nil)
 }
 
 func (scan *scan) ScanInternet(ctx context.Context, port int, protocol string) (string, error){
