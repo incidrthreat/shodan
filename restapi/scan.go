@@ -40,7 +40,7 @@ func (scan *scan) Scan(ctx context.Context, ips []string) (string, error) {
 	options[config.KEY] = scan.key
 	options[ips] = scan.ips
 	
-	furl := strings.Replace(url, "{ip}", scan.key, -1)
+	furl := strings.Replace(url, "{key}", scan.key, -1)
 	
 	response, e := http.DoPost(ctx, furl, options)
 	
