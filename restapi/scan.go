@@ -40,9 +40,11 @@ func (scan *scan) Scan(ctx context.Context, ips []string) (string, error) {
 	options[config.KEY] = scan.key
 	options[ips] = scan.ips
 	
-	response, _ := http.DoPost(ctx, url, options)
+	furl := strings.Replace(url, "{ip}", scan.key, -1)
 	
-	return httputil.Response(response, nil)
+	response, e := http.DoPost(ctx, furl, options)
+	
+	return httputil.Response(response, e)
 }
 
 func (scan *scan) ScanInternet(ctx context.Context, port int, protocol string) (string, error){
