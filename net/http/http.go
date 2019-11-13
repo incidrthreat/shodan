@@ -35,15 +35,19 @@ func Do(ctx context.Context, method, url string, options map[string]string) (*ht
 	return Execute(ctx, request)
 }
 
-func DoPost(ctx context.Context, url string, options map[string]string) (*http.Response, error) {
+func DoPost(ctx context.Context, URL string, options map[string]string) (*http.Response, error) {
 	data := url.Values{}
 	for key, value := range options {
+		for i := 0; i < 1; i++ {
+			if key != "" && value != "" {
+				data.Set(key, value)
+			}
+		}
 		if key != "" && value != "" {
 			data.Add(key, value)
 		}
-
 	}
-	request, e := http.NewRequest(http.MethodPost, url, bytes.NewBufferString(data.Encode()))
+	request, e := http.NewRequest(http.MethodPost, URL, bytes.NewBufferString(Encode(data)))
 	if e != nil {
 		return nil, e
 	}
