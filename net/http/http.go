@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"net/url"
 	"sort"
 	"strings"
 	"github.com/incidrthreat/shodan/net"
@@ -34,14 +35,21 @@ func Do(ctx context.Context, method, url string, options map[string]string) (*ht
 	return Execute(ctx, request)
 }
 
-func DoPost(ctx context.Context, me *net.Entity, url string) (*http.Response, error) {
-	request, e := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(me.Build()))
+func DoPost(ctx context.Context, url string, options map[string]string) (*http.Response, error) {
+	data := url.Values{}
+	for key, value := range options {
+		if key != "" && value != "" {
+			data.Add(key, value)
+		}
+
+	}
+	request, e := http.NewRequest(http.MethodPost, url, bytes.NewBufferString(data.Encode()))
 	if e != nil {
 		return nil, e
 	}
 
-	request.Header.Set(ContentTypeKey, net.CONTENT_TYPE)
-	request.Header.Add(UserAgentKey, net.USER_AGENT)
+	request.Header.Set(ContentTypeKey, "application/x-www-form-urlencoded; param=value")
+	
 	return Execute(ctx, request)
 }
 
