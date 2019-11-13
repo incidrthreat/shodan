@@ -19,7 +19,6 @@ type Scan interface {
 
 type scan struct {
 	key    string
-	ips     []string
 	config config.Scan
 }
 
@@ -38,7 +37,7 @@ func (scan *scan) Scan(ctx context.Context, ips []string) (string, error) {
 	
 	options := make(map[string]string)
 	options[config.KEY] = scan.key
-	options[ips] = scan.ips
+	options[ips] = ips
 	
 	furl := strings.Replace(url, "{key}", scan.key, -1)
 	
