@@ -1,4 +1,4 @@
-# shodan
+# Shodan Repo that's been forked and improved upon from github.com/B-V-R/shodan
 
 [![Build Status](https://travis-ci.org/B-V-R/shodan.svg?branch=master)](https://travis-ci.org/B-V-R/shodan)
 [![GitHub issues](https://img.shields.io/github/issues/B-V-R/shodan.svg?style=flat-square)]()
