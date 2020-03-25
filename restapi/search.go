@@ -5,6 +5,7 @@ import (
 	. "net/http"
 	"strconv"
 	"strings"
+
 	"github.com/incidrthreat/shodan/config"
 	"github.com/incidrthreat/shodan/net/http"
 	"github.com/incidrthreat/shodan/net/httputil"
@@ -19,7 +20,7 @@ const (
 )
 
 type Search interface {
-	HostInfo(ctx context.Context, ip string, history, minify bool) (string, error)
+	HostInfo(ctx context.Context, ip string, minify bool) (string, error)
 	HostCount(ctx context.Context, query, facets string) (string, error)
 	HostSearch(ctx context.Context, query, facets string, page int, minify bool) (string, error)
 	HostSearchTokens(ctx context.Context, query string) (string, error)
@@ -31,17 +32,16 @@ type search struct {
 	config config.Search
 }
 
-func (search *search) HostInfo(ctx context.Context, ip string, history, minify bool) (string, error) {
+func (search *search) HostInfo(ctx context.Context, ip string, minify bool) (string, error) {
 	url := search.config.HostInformationURL
 	furl := strings.Replace(url, "{ip}", ip, -1)
 
 	options := make(map[string]string)
 	options[config.KEY] = search.key
-	options[SearchOptionHistory] = strconv.FormatBool(history)
 	options[SearchOptionMinify] = strconv.FormatBool(minify)
 
-	response, e := http.Do(ctx, MethodGet, furl, options)
-	return httputil.Response(response, e)
+	response, _ := http.Do(ctx, MethodGet, furl, options)
+	return httputil.Response(response, nil)
 
 }
 
