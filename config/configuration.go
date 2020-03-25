@@ -15,7 +15,7 @@ func LoadConfig() Configuration {
 	data := `{
 		"restapi": {
 		  "search": {
-			"HostInformationURL": "https://api.shodan.io/shodan/host/{ip}",
+			"HostInformationURL": "https://api.shodan.io/shodan/host/{ip}?key={key}",
 			"HostCountURL": "https://api.shodan.io/shodan/host/count",
 			"HostSearchURL": "https://api.shodan.io/shodan/host/search",
 			"HostSearchTokensURL": "https://api.shodan.io/shodan/host/search/tokens",
