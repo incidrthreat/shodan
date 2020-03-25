@@ -32,18 +32,17 @@ func (scan *scan) Protocols(ctx context.Context) (string, error) {
 	return httputil.Response(response, e)
 }
 
-// Only one IP at this time
-// Need to add range to iterate through and send more than one ip
 func (scan *scan) Scan(ctx context.Context, ips []string) (string, error) {
 	url := scan.config.ScanURL
 
 	options := make(map[string]string)
 	options[config.KEY] = scan.key
-	options["ips"] = ips[0]
+	options[IPs] = IPs
 
 	furl := strings.Replace(url, "{key}", scan.key, -1)
 
 	response, e := http.DoPost(ctx, furl, options)
+
 	return httputil.Response(response, e)
 }
 
